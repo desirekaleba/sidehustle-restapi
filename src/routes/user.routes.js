@@ -19,4 +19,12 @@ module.exports = app => {
   router.delete("/:id", userController.delete);
 
   app.use('/api/users', router);
+
+  // error handler
+  app.use((err, req, res, next) => {
+    res.status(err.statusCode || 500).send({
+      message: err.message
+    });
+    next();
+  });
 };
